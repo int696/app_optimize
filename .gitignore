@@ -1,0 +1,12 @@
+# created by virtualenv automatically
+*
+.idea/
+Connected/pycache/
+Optimize_24/*.csv
+Optimize_24/pycache/
+Optimize_real/pycache/
+Request/pycache/
+Weather/pycache/
+images/
+utils/pycache/
+utils/*.csv
