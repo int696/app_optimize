@@ -11,6 +11,7 @@ class WeatherForecast:
         self.__headers = None
         self.set_param()
         self.name_file = Util()
+        self.status_code = None
 
     def set_param(self, station='1', var_station='mpei', var_nwp_provider='icon'):
         self.__headers = {
@@ -32,6 +33,7 @@ class WeatherForecast:
         if response.status_code == 200:
             try:
                 print(200)
+                self.status_code = 200
                 json_data = response.json()
                 data = self.__get_data()
                 self.name_file.create_json("weather.json", json_data[data:24+data])
