@@ -16,15 +16,15 @@ from Connected.connection_db import add_user
 def get_forecast_pv_power(connect):
     cursor = connect.cursor()
     # Получение информации из таблицы parameters_of_SDC
-    cursor.execute("SELECT * FROM parameters_of_SDC")
+    cursor.execute("SELECT * FROM Параметры_СДК")
     parameters_of_SDC = cursor.fetchone()
     print('OK_1:', parameters_of_SDC)
     # Получение информации из таблицы parameters_of_pv_modules
-    cursor.execute("SELECT * FROM parameters_of_pv_modules")
+    cursor.execute("SELECT * FROM Параметры_модель_СЭС")
     parameters_of_pv_modules = cursor.fetchone()
     print('OK_2:', parameters_of_pv_modules)
     # Получение информации из таблицы parameters_inv
-    cursor.execute("SELECT * FROM parameters_inv")
+    cursor.execute("SELECT * FROM Параметры_инвертора")
     parameters_inv = cursor.fetchone()
     print('OK_3:', parameters_inv)
     cursor.close()

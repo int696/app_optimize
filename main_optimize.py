@@ -22,8 +22,6 @@ def forecast(optimizator, operator):
     optimizator.init_optimize(operator, settings["Step_power"])
     excluded_engines = operator.get_excluded_engines()
 
-
-
     while True:
         if operator.check_connections("start_stop_optimizator"):
 
@@ -33,7 +31,7 @@ def forecast(optimizator, operator):
             operator.delete_forecast_power()
             # optimizator.optimize(excluded_engines, [power_forecast + 35, power_real], settings, f)
             optimizator.optimize(excluded_engines, [35, 35], settings, f)
-            # operator.update_forecast_power(h, lo+35, optimizator.list_dgu)
+            # operator.updaВ te_forecast_power(h, lo+35, optimizator.list_dgu)
             operator.update_excluded_engines(optimizator.list_dgu)
 
 

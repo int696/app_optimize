@@ -8,28 +8,28 @@ class Command:
 
     def check_connections(self, column):
         cursor = self.connect.cursor()
-        cursor.execute("SELECT * FROM control_signal WHERE id ='1'")
+        cursor.execute("SELECT * FROM Сигнал_управления WHERE id ='1'")
         start_stop = cursor.fetchone()[column]
         cursor.close()
         return start_stop
 
     def get_power_dgu(self):
         cursor = self.connect.cursor()
-        cursor.execute("SELECT * FROM power_dgu")
+        cursor.execute("SELECT * FROM Мощность_ДГУ")
         power_dgu = cursor.fetchall()
         cursor.close()
         return power_dgu
 
     def get_consumption_dgu(self):
         cursor = self.connect.cursor()
-        cursor.execute("SELECT * FROM consumption_dgu")
+        cursor.execute("SELECT * FROM Расход_ДГУ")
         consumption_dgu = cursor.fetchall()
         cursor.close()
         return consumption_dgu
 
     def get_setting(self):
         cursor = self.connect.cursor()
-        cursor.execute("SELECT * FROM settings")
+        cursor.execute("SELECT * FROM Настройки")
         setting = cursor.fetchall()[0]
         cursor.close()
         return setting
@@ -46,15 +46,15 @@ class Command:
         cursor = self.connect.cursor()
         for dgu in available_dgu:
             if dgu[1] != 0:
-                cursor.execute(f"UPDATE control_dgu_new SET control_dgu = 1 WHERE id = {dgu[0] + 1}")
+                cursor.execute(f"UPDATE Управление_ДГУ SET control_dgu = 1 WHERE id = {dgu[0] + 1}")
             else:
-                cursor.execute(f"UPDATE control_dgu_new SET control_dgu = 0 WHERE id = {dgu[0] + 1}")
+                cursor.execute(f"UPDATE Управление_ДГУ SET control_dgu = 0 WHERE id = {dgu[0] + 1}")
         cursor.close()
 
     def update_forecast_power(self, h, power, list_dgu):
         cursor = self.connect.cursor()
         for n, p, _ in list_dgu:
-            cursor.execute(f"UPDATE forecast_power "
+            cursor.execute(f"UPDATE Прогноз_мощности "
                            f"SET "
                            f"power_kW = {power}, "
                            f"dgu_{n + 1} = {p} "
@@ -76,12 +76,12 @@ class Command:
 
     def update_current_power(self, power):
         cursor = self.connect.cursor()
-        cursor.execute(f"UPDATE current_power SET current_power = {power} WHERE id = 1")
+        cursor.execute(f"UPDATE Текущая_мощность SET current_power = {power} WHERE id = 1")
         cursor.close()
 
     def get_load(self):
         cursor = self.connect.cursor()
-        cursor.execute("SELECT * FROM load_forecast")
+        cursor.execute("SELECT * FROM График_нагрузки_СДК")
         load = list(map(lambda lo: lo['power_kW'], cursor.fetchall()))[:-1]
         return load
 
@@ -151,7 +151,7 @@ class Command:
 
     def get_energy_storage_system(self):
         cursor = self.connect.cursor()
-        cursor.execute("SELECT * FROM energy_storage_system")
+        cursor.execute("SELECT * FROM Инфо_о_текущем_состоянии_СНЭ")
         data = cursor.fetchall()[0]
         return data
 
@@ -171,7 +171,7 @@ class Command:
 
     def get_control_dgu_new(self):
         cursor = self.connect.cursor()
-        cursor.execute("SELECT * FROM control_dgu_new")
+        cursor.execute("SELECT * FROM Управление_ДГУ")
         K_list = cursor.fetchall()
         control_dgu_new = list(map(lambda x: x['control_dgu'], K_list))
         return control_dgu_new
